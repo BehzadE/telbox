@@ -9,19 +9,18 @@ import (
 
 
 type App struct {
-    TClient *telegram.Bot
+    TClient *telegram.BotAPI
     Router *Router
 }
 
 func New() *App {
     var app App
     var err error
-	app.TClient, err = telegram.NewBotAPI(os.Getenv("TELEGRAM_BOT"))
+	app.TClient, err = telegram.NewBotAPI(os.Getenv("BOT_SECRET"))
     if err!=nil {
         log.Fatal(err)
     }
 
-    app.Router = NewRouter()
+    app.Router = NewRouter(os.Getenv("BOT_NAME"))
     return &app
-
 }
